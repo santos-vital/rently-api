@@ -1,0 +1,9 @@
+services:
+  rently-api:
+    build: .
+    container_name: rently-api
+    ports:
+      - "8080:8080"
+    environment:
+      JWT_SECRET: sua-chave-secreta-aqui-com-pelo-menos-256-bits-para-hs256
+      JWT_EXPIRATION: 86400000
