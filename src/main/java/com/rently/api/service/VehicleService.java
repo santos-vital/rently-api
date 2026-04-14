@@ -55,7 +55,7 @@ public class VehicleService {
   public VehicleResponseDTO findById(Long id) {
     return vehicleRepository.findById(id)
         .map(this::toDTO)
-        .orElseThrow(() -> new ResourceNotFoundException("Veículo não encontrado com id: " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Veículo com id " + id + " não encontrado"));
   }
 
   @Caching(evict = {
@@ -64,7 +64,7 @@ public class VehicleService {
   })
   public VehicleResponseDTO update(Long id, VehicleRequestDTO dto) {
     var vehicle = vehicleRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Veículo não encontrado com id: " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Veículo com id " + id + " não encontrado"));
     vehicle.setBrand(dto.brand());
     vehicle.setModel(dto.model());
     vehicle.setPlate(dto.plate());
@@ -79,7 +79,7 @@ public class VehicleService {
   })
   public void delete(Long id) {
     if (!vehicleRepository.existsById(id)) {
-      throw new ResourceNotFoundException("Veículo não encontrado com id: " + id);
+      throw new ResourceNotFoundException("Veículo com id " + id + " não encontrado");
     }
     vehicleRepository.deleteById(id);
   }
